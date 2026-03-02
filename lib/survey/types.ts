@@ -21,6 +21,7 @@ export interface BaseQuestion {
   id: string
   label: string
   required?: boolean
+  hint?: string
 }
 
 export interface TextQuestion extends BaseQuestion {
@@ -67,6 +68,14 @@ export interface SurveyPage {
   content: PageItem[]
   isSubmitPage?: boolean
   parentId?: string // ID of parent page for subpages (indented in navigation)
+  nextPageId?: string // Override the default next-page navigation
+  hideFromNav?: boolean // Exclude this page from the navigation sidebar entirely
+}
+
+export interface TocItem {
+  pageId: string
+  label: string
+  parentId?: string
 }
 
 export interface Survey {
@@ -76,6 +85,7 @@ export interface Survey {
   subtitle: string
   company: SurveyCompany
   pages: SurveyPage[]
+  toc?: TocItem[] // Explicit table of contents; if absent, derived from pages
 }
 
 export type SurveyAnswers = Record<string, string | string[]>

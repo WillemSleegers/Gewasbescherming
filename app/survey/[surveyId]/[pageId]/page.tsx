@@ -28,79 +28,95 @@ import {
   type Question,
   type Section,
   type RadioQuestion,
+  type SurveyAnswers,
 } from "@/lib/survey"
 
+function interpolate(text: string, answers: SurveyAnswers): string {
+  return text.replace(/\{\{(\w+)\}\}/g, (_, key) => {
+    const val = answers[key]
+    return typeof val === "string" ? val : `[${key}]`
+  })
+}
+
 function QuestionRenderer({ question }: { question: Question }) {
-  const { getAnswer, setAnswer } = useSurvey()
+  const { getAnswer, setAnswer, answers } = useSurvey()
 
   const value = getAnswer(question.id)
+  const label = interpolate(question.label, answers)
 
-  switch (question.type) {
-    case "text":
-      return (
-        <BlaiseTextInput
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          placeholder={question.placeholder}
-          required={question.required}
-        />
-      )
-    case "textarea":
-      return (
-        <BlaiseTextArea
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          placeholder={question.placeholder}
-          rows={question.rows}
-          required={question.required}
-        />
-      )
-    case "radio":
-      return (
-        <BlaiseRadioGroup
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          options={question.options}
-          required={question.required}
-        />
-      )
-    case "checkbox":
-      return (
-        <BlaiseCheckboxGroup
-          id={question.id}
-          label={question.label}
-          values={(value as string[]) || []}
-          onChange={(v) => setAnswer(question.id, v)}
-          options={question.options}
-          required={question.required}
-        />
-      )
-    case "number":
-      return (
-        <BlaiseNumberInput
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          placeholder={question.placeholder}
-          min={question.min}
-          max={question.max}
-          required={question.required}
-        />
-      )
-  }
+  const rendered = (() => {
+    switch (question.type) {
+      case "text":
+        return (
+          <BlaiseTextInput
+            id={question.id}
+            label={label}
+            value={(value as string) || ""}
+            onChange={(v) => setAnswer(question.id, v)}
+            placeholder={question.placeholder}
+            required={question.required}
+          />
+        )
+      case "textarea":
+        return (
+          <BlaiseTextArea
+            id={question.id}
+            label={label}
+            value={(value as string) || ""}
+            onChange={(v) => setAnswer(question.id, v)}
+            placeholder={question.placeholder}
+            rows={question.rows}
+            required={question.required}
+          />
+        )
+      case "radio":
+        return (
+          <BlaiseRadioGroup
+            id={question.id}
+            label={label}
+            value={(value as string) || ""}
+            onChange={(v) => setAnswer(question.id, v)}
+            options={question.options}
+            required={question.required}
+            hint={question.hint}
+          />
+        )
+      case "checkbox":
+        return (
+          <BlaiseCheckboxGroup
+            id={question.id}
+            label={label}
+            values={(value as string[]) || []}
+            onChange={(v) => setAnswer(question.id, v)}
+            options={question.options}
+            required={question.required}
+          />
+        )
+      case "number":
+        return (
+          <BlaiseNumberInput
+            id={question.id}
+            label={label}
+            value={(value as string) || ""}
+            onChange={(v) => setAnswer(question.id, v)}
+            placeholder={question.placeholder}
+            min={question.min}
+            max={question.max}
+            required={question.required}
+          />
+        )
+    }
+  })()
+
+  return <>{rendered}</>
 }
 
 function SectionRenderer({ section }: { section: Section }) {
+  const { answers } = useSurvey()
+  const text = interpolate(section.text, answers)
   return (
     <BlaiseContentSection title={section.title}>
-      <p>{section.text}</p>
+      <p className="whitespace-pre-line">{text}</p>
     </BlaiseContentSection>
   )
 }
@@ -115,12 +131,10 @@ function PageContent({
   currentIndex: number
 }) {
   const router = useRouter()
-  const { clearAnswers, answers } = useSurvey()
+  const { answers, navigationHistory, pushHistory, popHistory } = useSurvey()
 
-  const isFirstPage = currentIndex === 0
   const isLastPage = currentIndex === survey.pages.length - 1
   const nextPage = !isLastPage ? survey.pages[currentIndex + 1] : null
-  const prevPage = !isFirstPage ? survey.pages[currentIndex - 1] : null
 
   // Find skip target based on current page's radio answers
   const getSkipTarget = (): string | null => {
@@ -142,22 +156,26 @@ function PageContent({
   }
 
   const handleNext = () => {
+    pushHistory(page.id)
     const skipTarget = getSkipTarget()
     if (skipTarget) {
       router.push(`/survey/${survey.id}/${skipTarget}`)
+    } else if (page.nextPageId) {
+      router.push(`/survey/${survey.id}/${page.nextPageId}`)
     } else if (nextPage) {
       router.push(`/survey/${survey.id}/${nextPage.id}`)
     }
   }
 
   const handlePrevious = () => {
-    if (prevPage) {
-      router.push(`/survey/${survey.id}/${prevPage.id}`)
+    const prevPageId = navigationHistory[navigationHistory.length - 1]
+    if (prevPageId) {
+      popHistory()
+      router.push(`/survey/${survey.id}/${prevPageId}`)
     }
   }
 
   const handleSubmit = () => {
-    clearAnswers()
     alert("Vragenlijst verzonden! (Demo - geen data opgeslagen)")
   }
 
@@ -178,7 +196,7 @@ function PageContent({
       </div>
 
       <div className="flex gap-4">
-        {!isFirstPage && (
+        {navigationHistory.length > 0 && (
           <BlaiseButton onClick={handlePrevious}>Vorige</BlaiseButton>
         )}
         {page.isSubmitPage ? (
@@ -204,15 +222,33 @@ function SurveyPageInner({
   const { visitedPages, markPageVisited } = useSurvey()
 
   useEffect(() => {
+    const firstPage = survey.pages[0]
+    // On refresh, state is gone but URL is not — redirect to first page
+    if (visitedPages.size === 0 && page.id !== firstPage.id) {
+      router.replace(`/survey/${survey.id}/${firstPage.id}`)
+      return
+    }
     markPageVisited(page.id)
-  }, [page.id, markPageVisited])
+  // visitedPages intentionally omitted from deps: only needs the value at the time page.id changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page.id, markPageVisited, survey, router])
 
-  const navItems = survey.pages.map((p, i) => ({
-    id: p.id,
-    label: p.label,
-    active: i === currentIndex,
-    visited: visitedPages.has(p.id),
-    parentId: p.parentId,
+  const tocItems = survey.toc ??
+    survey.pages
+      .filter((p) => !p.hideFromNav)
+      .map((p) => ({ pageId: p.id, label: p.label, parentId: p.parentId }))
+
+  // The active TOC item is the last one whose page appears at or before the current page
+  const activeTocPageId = tocItems
+    .filter((item) => survey.pages.findIndex((p) => p.id === item.pageId) <= currentIndex)
+    .at(-1)?.pageId
+
+  const navItems = tocItems.map((item) => ({
+    id: item.pageId,
+    label: item.label,
+    active: item.pageId === activeTocPageId,
+    visited: visitedPages.has(item.pageId),
+    parentId: item.parentId,
   }))
 
   const handleNavClick = (pageId: string) => {

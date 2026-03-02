@@ -12,6 +12,7 @@ interface BlaiseRadioGroupProps {
   onChange: (value: string) => void
   options: RadioOption[]
   required?: boolean
+  hint?: string
 }
 
 export function BlaiseRadioGroup({
@@ -21,6 +22,7 @@ export function BlaiseRadioGroup({
   onChange,
   options,
   required,
+  hint,
 }: BlaiseRadioGroupProps) {
   return (
     <fieldset className="mb-4">
@@ -28,6 +30,7 @@ export function BlaiseRadioGroup({
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </legend>
+      {hint && <p className="text-sm text-gray-500 mb-2">{hint}</p>}
       <div className="space-y-1">
         {options.map((option) => (
           <label

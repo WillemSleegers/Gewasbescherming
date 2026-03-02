@@ -1,10 +1,10 @@
 import type { Survey } from "../types"
-import { gewasbescherming2024 } from "./gewasbescherming-2024"
-import { gewasbescherming2024Agrovision } from "./gewasbescherming-2024-agrovision"
+import gewasbescherming2024 from "./gewasbescherming-2024.json"
+import gewasbescherming2024Agrovision from "./gewasbescherming-2026-agrovision.json"
 
 const surveys: Record<string, Survey> = {
-  "gewasbescherming-2024": gewasbescherming2024,
-  "gewasbescherming-2024-agrovision": gewasbescherming2024Agrovision,
+  "gewasbescherming-2024": gewasbescherming2024 as Survey,
+  "gewasbescherming-2026-agrovision": gewasbescherming2024Agrovision as Survey,
 }
 
 export function getSurvey(id: string): Survey | undefined {

@@ -1,0 +1,152 @@
+{
+  "id": "gewasbescherming-2026-agrovision",
+  "label": "Gewasbescherming 2026 (AgroVision)",
+  "title": "Gewasbescherming 2026",
+  "subtitle": "Invullen voor: 1-1-2027",
+  "company": {
+    "name": "Bedrijfsnaam 1",
+    "contactPerson": "Contactpersoon 1",
+    "correspondenceNumber": "0001"
+  },
+  "toc": [
+    { "pageId": "welkom", "label": "Welkom" },
+    { "pageId": "meedoen", "label": "Pilot" },
+    { "pageId": "einde", "label": "Einde" }
+  ],
+  "pages": [
+    {
+      "id": "setup",
+      "label": "SETUP",
+      "title": "SETUP",
+      "hideFromNav": true,
+      "content": [
+        {
+          "text": "Deze pagina kan worden gebruikt om de gebruikerstest klaar te zetten."
+        },
+        { "id": "GewasNaam", "type": "text", "label": "Gewasnaam" },
+        {
+          "id": "GebruiktAgroVision",
+          "type": "radio",
+          "label": "AgroVision gebruik",
+          "options": [
+            { "value": "Ja", "label": "Ja" },
+            { "value": "Nee", "label": "Nee", "skipTo": "geen-agrovision" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "welkom",
+      "label": "Welkom",
+      "title": "Welkom bij de vragenlijst",
+      "content": [
+        {
+          "title": "Invullen",
+          "text": "Wij adviseren u de vragenlijst in te vullen op een desktop computer of laptop."
+        },
+        {
+          "title": "Toelichtingen",
+          "text": "De knop met een vraagteken betekent dat er extra uitleg is. Druk op deze knop als u de uitleg wilt zien."
+        },
+        {
+          "title": "Opslaan",
+          "text": "Gegevens worden alleen automatisch opgeslagen wanneer u tussen schermen bladert. Wanneer u langere tijd werkt in één scherm, is het daarom raadzaam zelf de gegevens regelmatig op te slaan door rechtsboven in het scherm op de knop 'Opslaan' te drukken."
+        },
+        {
+          "title": "Heeft u vragen?",
+          "text": "Druk op de 'Help' knop rechtsboven in dit scherm voor verdere uitleg of kijk op www.cbs.nl voor veelgestelde vragen over dit onderzoek."
+        }
+      ]
+    },
+    {
+      "id": "meedoen",
+      "label": "Meedoen",
+      "title": "Meedoen aan de pilot",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u AgroVision gebruikt om gegevens bij te houden voor {{GewasNaam}}. Het CBS doet dit jaar een pilot waarbij boeren/telers ervoor kunnen kiezen hun informatie van de teeltregistratie voor {{GewasNaam}} te delen met het CBS.\n\nDit kunt u zelf doen in AgroVision Crops. Dit betreft alleen het gebruik van gewasbeschermingsmiddelen en het behandeld oppervlak voor {{GewasNaam}}. Zodoende hoeft u zelf deze informatie niet meer op te geven via de vragenlijst. Uw administratie van {{GewasNaam}} in Agrovision moet hiervoor wel compleet zijn. Als de informatie incompleet blijkt, zullen we u op een later moment alsnog benaderen voor de deelname aan onze vragenlijst."
+        },
+        {
+          "id": "MeeDoen",
+          "type": "radio",
+          "label": "Wilt u mee doen aan de test waarbij u uw teeltregistratie voor {{GewasNaam}} vanuit AgroVision naar het CBS kunt sturen?",
+          "hint": "Indien u mee wilt doen, volgt hierna een uitleg hoe u de informatie naar het CBS stuurt.",
+          "options": [
+            { "value": "Ja", "label": "Ja" },
+            { "value": "Nee", "label": "Nee", "skipTo": "niet-meedoen" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instructies",
+      "label": "Instructies",
+      "title": "Instructies",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u mee wilt doen aan de test. Hieronder volgt een uitleg hoe u de informatie kan versturen vanuit AgroVision."
+        },
+        {
+          "title": "Hoe verstuurt u uw teeltregistratie naar het CBS?",
+          "text": "1. Gaan naar AgroVision Crops op uw computer of in de app op uw telefoon/tablet.\n2. Klik op de menuknop Communicatie.\n3. Kies het tabblad Edi export afnemer.\n4. Klik op de knop + Koppelen teelten/afnemers.\n5. Selecteer CBS in het optiemenu.\n6. Vink de teelt(en) aan die u wilt verzenden.\n7. Sluit af met Opslaan.\n8. Klik aan de rechterkant op de witte envelop om de teelt te versturen.\n9. Keer terug naar deze vragenlijst."
+        },
+        {
+          "id": "TeeltVerstuurd",
+          "type": "radio",
+          "label": "Is de teeltregistratie voor {{GewasNaam}} succesvol verstuurd naar het CBS?",
+          "options": [
+            { "value": "Ja", "label": "Ja", "skipTo": "bedankt" },
+            { "value": "Nee", "label": "Nee" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mislukt",
+      "label": "Niet verstuurd",
+      "title": "Niet verstuurd",
+      "nextPageId": "einde",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u de teeltregistratie niet naar het CBS kon versturen in AgroVision Crops.\n\nDit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief."
+        }
+      ]
+    },
+    {
+      "id": "bedankt",
+      "label": "Bedankt",
+      "title": "Bedankt",
+      "nextPageId": "einde",
+      "content": [{ "text": "Hartelijk dank voor uw deelname aan de pilot!" }]
+    },
+    {
+      "id": "niet-meedoen",
+      "label": "Niet meedoen",
+      "title": "Niet meedoen",
+      "nextPageId": "einde",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u niet mee wilt doen aan de pilot. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief."
+        }
+      ]
+    },
+    {
+      "id": "geen-agrovision",
+      "label": "Geen AgroVision",
+      "title": "Geen AgroVision",
+      "nextPageId": "einde",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u geen gebruik maakt van AgroVision voor het registreren van gewasbeschermingsmiddelen. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief."
+        }
+      ]
+    },
+    {
+      "id": "einde",
+      "label": "Einde",
+      "title": "Einde",
+      "isSubmitPage": true,
+      "content": [{ "text": "Dit is het einde van de gebruikerstest." }]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+# **SETUP**
+
+Deze pagina kan worden gebruikt om de gebruikerstest klaar te zetten.
+
+Q: Gewasnaam
+TEXT
+VARIABLE: GewasNaam
+
+Q: AgroVision gebruik
+VARIABLE: GebruiktAgroVision
+- Ja
+- Nee
+
+# 
+SHOW_IF: GebruiktAgroVision == Ja
+
+U heeft aangegeven dat u AgroVision gebruikt om gegevens bij te houden voor {{GewasNaam}}. Het CBS doet dit jaar een pilot waarbij boeren/telers ervoor kunnen kiezen hun informatie van de teeltregistratie voor {{GewasNaam}} te delen met het CBS.
+
+Dit kunt u zelf doen in AgroVision Crops. Dit betreft alleen het gebruik van gewasbeschermingsmiddelen en het behandeld oppervlak voor {{GewasNaam}}. Zodoende hoeft u zelf deze informatie niet meer op te geven via de vragenlijst. Uw administratie van {{GewasNaam}} in Agrovision moet hiervoor wel compleet zijn. Als de informatie incompleet blijkt, zullen we u op een later moment alsnog benaderen voor de deelname aan onze vragenlijst.
+
+Q: **Wilt u mee doen aan de test waarbij u uw teeltregistratie voor {{GewasNaam}} vanuit AgroVision naar het CBS kunt sturen?**
+HINT: Indien u mee wilt doen, volgt hierna een uitleg hoe u de informatie naar het CBS stuurt.
+VARIABLE: MeeDoen
+- Ja
+- Nee
+
+# 
+SHOW_IF: MeeDoen == Ja
+
+U heeft aangegeven dat u mee wilt doen aan de test. Hieronder volgt een uitleg hoe u de informatie kan versturen vanuit AgroVision.
+
+## Hoe verstuurt u uw teeltregistratie naar het CBS?
+
+1. Gaan naar AgroVision Crops op uw computer of in de app op uw telefoon/tablet.
+2. Klik op de menuknop Communicatie.
+3. Kies het tabblad *Edi export afnemer*.
+4. Klik op de knop *+ Koppelen teelten/afnemers*.
+5. Selecteer CBS in het optiemenu.
+6. Vink de teelt(en) aan die u wilt verzenden.
+7. Sluit af met **Opslaan**.
+8. Klik aan de rechterkant op de witte envelop om de teelt te versturen.
+9. **Keer terug naar deze vragenlijst**.
+
+Q: Is de teeltregistratie voor {{GewasNaam}} succesvol verstuurd naar het CBS?
+VARIABLE: TeeltVerstuurd
+- Ja
+- Nee
+
+# 
+SHOW_IF: MeeDoen == Ja AND TeeltVerstuurd == Nee
+
+U heeft aangegeven dat u de teeltregistratie **niet** naar het CBS kon versturen in AgroVision Crops.
+
+Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.
+
+# 
+SHOW_IF: MeeDoen == Ja AND TeeltVerstuurd == Ja
+
+Hartelijk dank voor uw deelname aan de pilot!
+
+# 
+SHOW_IF: MeeDoen == Nee
+
+U heeft aangegeven dat u **niet** mee wilt doen aan de pilot. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.
+
+# 
+SHOW_IF: GebruiktAgroVision == Nee
+
+U heeft aangegeven dat u geen gebruik maakt van AgroVision voor het registreren van gewasbeschermingsmiddelen. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.
+
+# 
+
+Dit is het einde van de gebruikerstest.

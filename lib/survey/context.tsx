@@ -10,6 +10,9 @@ interface SurveyContextValue {
   clearAnswers: () => void
   visitedPages: Set<string>
   markPageVisited: (pageId: string) => void
+  navigationHistory: string[]
+  pushHistory: (pageId: string) => void
+  popHistory: () => void
 }
 
 const SurveyContext = createContext<SurveyContextValue | null>(null)
@@ -19,44 +22,24 @@ interface SurveyProviderProps {
   surveyId: string
 }
 
-export function SurveyProvider({ children, surveyId }: SurveyProviderProps) {
-  const storageKey = `survey-answers-${surveyId}`
-
-  const [answers, setAnswers] = useState<SurveyAnswers>(() => {
-    if (typeof window === "undefined") return {}
-    const stored = sessionStorage.getItem(storageKey)
-    return stored ? JSON.parse(stored) : {}
-  })
-
+export function SurveyProvider({ children }: SurveyProviderProps) {
+  const [answers, setAnswers] = useState<SurveyAnswers>({})
   const [visitedPages, setVisitedPages] = useState<Set<string>>(new Set())
+  const [navigationHistory, setNavigationHistory] = useState<string[]>([])
 
-  const setAnswer = useCallback(
-    (questionId: string, value: string | string[]) => {
-      setAnswers((prev) => {
-        const next = { ...prev, [questionId]: value }
-        if (typeof window !== "undefined") {
-          sessionStorage.setItem(storageKey, JSON.stringify(next))
-        }
-        return next
-      })
-    },
-    [storageKey]
-  )
+  const setAnswer = useCallback((questionId: string, value: string | string[]) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: value }))
+  }, [])
 
   const getAnswer = useCallback(
-    (questionId: string) => {
-      return answers[questionId]
-    },
+    (questionId: string) => answers[questionId],
     [answers]
   )
 
   const clearAnswers = useCallback(() => {
     setAnswers({})
     setVisitedPages(new Set())
-    if (typeof window !== "undefined") {
-      sessionStorage.removeItem(storageKey)
-    }
-  }, [storageKey])
+  }, [])
 
   const markPageVisited = useCallback((pageId: string) => {
     setVisitedPages((prev) => {
@@ -66,9 +49,27 @@ export function SurveyProvider({ children, surveyId }: SurveyProviderProps) {
     })
   }, [])
 
+  const pushHistory = useCallback((pageId: string) => {
+    setNavigationHistory((prev) => [...prev, pageId])
+  }, [])
+
+  const popHistory = useCallback(() => {
+    setNavigationHistory((prev) => prev.slice(0, -1))
+  }, [])
+
   return (
     <SurveyContext.Provider
-      value={{ answers, setAnswer, getAnswer, clearAnswers, visitedPages, markPageVisited }}
+      value={{
+        answers,
+        setAnswer,
+        getAnswer,
+        clearAnswers,
+        visitedPages,
+        markPageVisited,
+        navigationHistory,
+        pushHistory,
+        popHistory,
+      }}
     >
       {children}
     </SurveyContext.Provider>
