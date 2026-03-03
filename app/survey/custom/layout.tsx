@@ -1,5 +1,3 @@
-"use client"
-
 import { SurveyProvider } from "@/lib/survey"
 
 export default function CustomSurveyLayout({
@@ -7,5 +5,5 @@ export default function CustomSurveyLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <SurveyProvider surveyId="custom">{children}</SurveyProvider>
+  return <SurveyProvider>{children}</SurveyProvider>
 }

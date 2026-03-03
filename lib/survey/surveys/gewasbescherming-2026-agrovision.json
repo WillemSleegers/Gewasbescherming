@@ -9,7 +9,6 @@
     "correspondenceNumber": "0001"
   },
   "toc": [
-    { "pageId": "welkom", "label": "Welkom" },
     { "pageId": "meedoen", "label": "Pilot" },
     { "pageId": "einde", "label": "Einde" }
   ],
@@ -35,29 +34,7 @@
         }
       ]
     },
-    {
-      "id": "welkom",
-      "label": "Welkom",
-      "title": "Welkom bij de vragenlijst",
-      "content": [
-        {
-          "title": "Invullen",
-          "text": "Wij adviseren u de vragenlijst in te vullen op een desktop computer of laptop."
-        },
-        {
-          "title": "Toelichtingen",
-          "text": "De knop met een vraagteken betekent dat er extra uitleg is. Druk op deze knop als u de uitleg wilt zien."
-        },
-        {
-          "title": "Opslaan",
-          "text": "Gegevens worden alleen automatisch opgeslagen wanneer u tussen schermen bladert. Wanneer u langere tijd werkt in één scherm, is het daarom raadzaam zelf de gegevens regelmatig op te slaan door rechtsboven in het scherm op de knop 'Opslaan' te drukken."
-        },
-        {
-          "title": "Heeft u vragen?",
-          "text": "Druk op de 'Help' knop rechtsboven in dit scherm voor verdere uitleg of kijk op www.cbs.nl voor veelgestelde vragen over dit onderzoek."
-        }
-      ]
-    },
+
     {
       "id": "meedoen",
       "label": "Meedoen",

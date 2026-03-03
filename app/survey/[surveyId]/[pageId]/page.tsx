@@ -9,117 +9,19 @@ import {
   BlaiseTitleBar,
   BlaiseNavigation,
   BlaiseContent,
-  BlaiseContentSection,
   BlaiseInfoPanel,
   BlaiseButton,
-  BlaiseTextInput,
-  BlaiseTextArea,
-  BlaiseRadioGroup,
-  BlaiseCheckboxGroup,
-  BlaiseNumberInput,
 } from "@/components/blaise"
 import {
   getSurvey,
   useSurvey,
   isQuestion,
   isSection,
+  QuestionRenderer,
+  SectionRenderer,
   type Survey,
   type SurveyPage,
-  type Question,
-  type Section,
-  type RadioQuestion,
-  type SurveyAnswers,
 } from "@/lib/survey"
-
-function interpolate(text: string, answers: SurveyAnswers): string {
-  return text.replace(/\{\{(\w+)\}\}/g, (_, key) => {
-    const val = answers[key]
-    return typeof val === "string" ? val : `[${key}]`
-  })
-}
-
-function QuestionRenderer({ question }: { question: Question }) {
-  const { getAnswer, setAnswer, answers } = useSurvey()
-
-  const value = getAnswer(question.id)
-  const label = interpolate(question.label, answers)
-
-  const rendered = (() => {
-    switch (question.type) {
-      case "text":
-        return (
-          <BlaiseTextInput
-            id={question.id}
-            label={label}
-            value={(value as string) || ""}
-            onChange={(v) => setAnswer(question.id, v)}
-            placeholder={question.placeholder}
-            required={question.required}
-          />
-        )
-      case "textarea":
-        return (
-          <BlaiseTextArea
-            id={question.id}
-            label={label}
-            value={(value as string) || ""}
-            onChange={(v) => setAnswer(question.id, v)}
-            placeholder={question.placeholder}
-            rows={question.rows}
-            required={question.required}
-          />
-        )
-      case "radio":
-        return (
-          <BlaiseRadioGroup
-            id={question.id}
-            label={label}
-            value={(value as string) || ""}
-            onChange={(v) => setAnswer(question.id, v)}
-            options={question.options}
-            required={question.required}
-            hint={question.hint}
-          />
-        )
-      case "checkbox":
-        return (
-          <BlaiseCheckboxGroup
-            id={question.id}
-            label={label}
-            values={(value as string[]) || []}
-            onChange={(v) => setAnswer(question.id, v)}
-            options={question.options}
-            required={question.required}
-          />
-        )
-      case "number":
-        return (
-          <BlaiseNumberInput
-            id={question.id}
-            label={label}
-            value={(value as string) || ""}
-            onChange={(v) => setAnswer(question.id, v)}
-            placeholder={question.placeholder}
-            min={question.min}
-            max={question.max}
-            required={question.required}
-          />
-        )
-    }
-  })()
-
-  return <>{rendered}</>
-}
-
-function SectionRenderer({ section }: { section: Section }) {
-  const { answers } = useSurvey()
-  const text = interpolate(section.text, answers)
-  return (
-    <BlaiseContentSection title={section.title}>
-      <p className="whitespace-pre-line">{text}</p>
-    </BlaiseContentSection>
-  )
-}
 
 function PageContent({
   survey,
@@ -136,19 +38,13 @@ function PageContent({
   const isLastPage = currentIndex === survey.pages.length - 1
   const nextPage = !isLastPage ? survey.pages[currentIndex + 1] : null
 
-  // Find skip target based on current page's radio answers
   const getSkipTarget = (): string | null => {
     for (const item of page.content) {
       if (isQuestion(item) && item.type === "radio") {
         const answer = answers[item.id]
         if (answer) {
-          const radioQuestion = item as RadioQuestion
-          const selectedOption = radioQuestion.options.find(
-            (opt) => opt.value === answer
-          )
-          if (selectedOption?.skipTo) {
-            return selectedOption.skipTo
-          }
+          const selected = item.options.find((opt) => opt.value === answer)
+          if (selected?.skipTo) return selected.skipTo
         }
       }
     }
@@ -189,7 +85,7 @@ function PageContent({
             return <QuestionRenderer key={item.id} question={item} />
           }
           if (isSection(item)) {
-            return <SectionRenderer key={i} section={item} />
+            return <SectionRenderer key={`section-${i}`} section={item} />
           }
           return null
         })}
@@ -259,7 +155,6 @@ function SurveyPageInner({
     <BlaiseLayout>
       <BlaiseHeader />
 
-      {/* Title bar section */}
       <div className="flex">
         <BlaiseTitleBar title={survey.title} subtitle={survey.subtitle} />
         <div className="flex-1 border-t-20 border-t-survey-white bg-survey-accent"></div>
@@ -272,7 +167,6 @@ function SurveyPageInner({
         </div>
       </div>
 
-      {/* Main content area */}
       <div className="flex">
         <BlaiseNavigation items={navItems} onItemClick={handleNavClick} activePageId={page.id} />
         <BlaiseContent>

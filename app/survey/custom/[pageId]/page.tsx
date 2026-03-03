@@ -8,101 +8,19 @@ import {
   BlaiseTitleBar,
   BlaiseNavigation,
   BlaiseContent,
-  BlaiseContentSection,
   BlaiseInfoPanel,
   BlaiseButton,
-  BlaiseTextInput,
-  BlaiseTextArea,
-  BlaiseRadioGroup,
-  BlaiseCheckboxGroup,
-  BlaiseNumberInput,
 } from "@/components/blaise"
 import {
   getCustomSurvey,
   useSurvey,
   isQuestion,
   isSection,
+  QuestionRenderer,
+  SectionRenderer,
   type Survey,
   type SurveyPage,
-  type Question,
-  type Section,
-  type RadioQuestion,
 } from "@/lib/survey"
-
-function QuestionRenderer({ question }: { question: Question }) {
-  const { getAnswer, setAnswer } = useSurvey()
-
-  const value = getAnswer(question.id)
-
-  switch (question.type) {
-    case "text":
-      return (
-        <BlaiseTextInput
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          placeholder={question.placeholder}
-          required={question.required}
-        />
-      )
-    case "textarea":
-      return (
-        <BlaiseTextArea
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          placeholder={question.placeholder}
-          rows={question.rows}
-          required={question.required}
-        />
-      )
-    case "radio":
-      return (
-        <BlaiseRadioGroup
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          options={question.options}
-          required={question.required}
-        />
-      )
-    case "checkbox":
-      return (
-        <BlaiseCheckboxGroup
-          id={question.id}
-          label={question.label}
-          values={(value as string[]) || []}
-          onChange={(v) => setAnswer(question.id, v)}
-          options={question.options}
-          required={question.required}
-        />
-      )
-    case "number":
-      return (
-        <BlaiseNumberInput
-          id={question.id}
-          label={question.label}
-          value={(value as string) || ""}
-          onChange={(v) => setAnswer(question.id, v)}
-          placeholder={question.placeholder}
-          min={question.min}
-          max={question.max}
-          required={question.required}
-        />
-      )
-  }
-}
-
-function SectionRenderer({ section }: { section: Section }) {
-  return (
-    <BlaiseContentSection title={section.title}>
-      <p>{section.text}</p>
-    </BlaiseContentSection>
-  )
-}
 
 function PageContent({
   survey,
@@ -114,26 +32,18 @@ function PageContent({
   currentIndex: number
 }) {
   const router = useRouter()
-  const { clearAnswers, answers } = useSurvey()
+  const { answers, navigationHistory, pushHistory, popHistory } = useSurvey()
 
-  const isFirstPage = currentIndex === 0
   const isLastPage = currentIndex === survey.pages.length - 1
   const nextPage = !isLastPage ? survey.pages[currentIndex + 1] : null
-  const prevPage = !isFirstPage ? survey.pages[currentIndex - 1] : null
 
-  // Find skip target based on current page's radio answers
   const getSkipTarget = (): string | null => {
     for (const item of page.content) {
       if (isQuestion(item) && item.type === "radio") {
         const answer = answers[item.id]
         if (answer) {
-          const radioQuestion = item as RadioQuestion
-          const selectedOption = radioQuestion.options.find(
-            (opt) => opt.value === answer
-          )
-          if (selectedOption?.skipTo) {
-            return selectedOption.skipTo
-          }
+          const selected = item.options.find((opt) => opt.value === answer)
+          if (selected?.skipTo) return selected.skipTo
         }
       }
     }
@@ -141,22 +51,26 @@ function PageContent({
   }
 
   const handleNext = () => {
+    pushHistory(page.id)
     const skipTarget = getSkipTarget()
     if (skipTarget) {
       router.push(`/survey/custom/${skipTarget}`)
+    } else if (page.nextPageId) {
+      router.push(`/survey/custom/${page.nextPageId}`)
     } else if (nextPage) {
       router.push(`/survey/custom/${nextPage.id}`)
     }
   }
 
   const handlePrevious = () => {
-    if (prevPage) {
-      router.push(`/survey/custom/${prevPage.id}`)
+    const prevPageId = navigationHistory[navigationHistory.length - 1]
+    if (prevPageId) {
+      popHistory()
+      router.push(`/survey/custom/${prevPageId}`)
     }
   }
 
   const handleSubmit = () => {
-    clearAnswers()
     alert("Vragenlijst verzonden! (Demo - geen data opgeslagen)")
   }
 
@@ -170,14 +84,14 @@ function PageContent({
             return <QuestionRenderer key={item.id} question={item} />
           }
           if (isSection(item)) {
-            return <SectionRenderer key={i} section={item} />
+            return <SectionRenderer key={`section-${i}`} section={item} />
           }
           return null
         })}
       </div>
 
       <div className="flex gap-4">
-        {!isFirstPage && (
+        {navigationHistory.length > 0 && (
           <BlaiseButton onClick={handlePrevious}>Vorige</BlaiseButton>
         )}
         {page.isSubmitPage ? (
@@ -222,7 +136,6 @@ function SurveyPageInner({
     <BlaiseLayout>
       <BlaiseHeader />
 
-      {/* Title bar section */}
       <div className="flex">
         <BlaiseTitleBar title={survey.title} subtitle={survey.subtitle} />
         <div className="flex-1 border-t-20 border-t-survey-white bg-survey-accent"></div>
@@ -235,7 +148,6 @@ function SurveyPageInner({
         </div>
       </div>
 
-      {/* Main content area */}
       <div className="flex">
         <BlaiseNavigation items={navItems} onItemClick={handleNavClick} activePageId={page.id} />
         <BlaiseContent>

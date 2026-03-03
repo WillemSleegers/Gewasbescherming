@@ -7,7 +7,6 @@ interface SurveyContextValue {
   answers: SurveyAnswers
   setAnswer: (questionId: string, value: string | string[]) => void
   getAnswer: (questionId: string) => string | string[] | undefined
-  clearAnswers: () => void
   visitedPages: Set<string>
   markPageVisited: (pageId: string) => void
   navigationHistory: string[]
@@ -17,12 +16,7 @@ interface SurveyContextValue {
 
 const SurveyContext = createContext<SurveyContextValue | null>(null)
 
-interface SurveyProviderProps {
-  children: React.ReactNode
-  surveyId: string
-}
-
-export function SurveyProvider({ children }: SurveyProviderProps) {
+export function SurveyProvider({ children }: { children: React.ReactNode }) {
   const [answers, setAnswers] = useState<SurveyAnswers>({})
   const [visitedPages, setVisitedPages] = useState<Set<string>>(new Set())
   const [navigationHistory, setNavigationHistory] = useState<string[]>([])
@@ -35,11 +29,6 @@ export function SurveyProvider({ children }: SurveyProviderProps) {
     (questionId: string) => answers[questionId],
     [answers]
   )
-
-  const clearAnswers = useCallback(() => {
-    setAnswers({})
-    setVisitedPages(new Set())
-  }, [])
 
   const markPageVisited = useCallback((pageId: string) => {
     setVisitedPages((prev) => {
@@ -63,7 +52,6 @@ export function SurveyProvider({ children }: SurveyProviderProps) {
         answers,
         setAnswer,
         getAnswer,
-        clearAnswers,
         visitedPages,
         markPageVisited,
         navigationHistory,
