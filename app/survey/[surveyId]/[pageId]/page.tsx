@@ -130,14 +130,18 @@ function SurveyPageInner({
   }, [page.id, markPageVisited, survey, router])
 
   const tocItems = survey.toc ??
-    survey.pages
-      .filter((p) => !p.hideFromNav)
-      .map((p) => ({ pageId: p.id, label: p.label, parentId: p.parentId }))
+    survey.pages.map((p) => ({ pageId: p.id, label: p.title, parentId: p.parentId }))
 
-  // The active TOC item is the last one whose page appears at or before the current page
-  const activeTocPageId = tocItems
-    .filter((item) => survey.pages.findIndex((p) => p.id === item.pageId) <= currentIndex)
-    .at(-1)?.pageId
+  // On submit pages, activate the last TOC item (acts as a shared "Einde" slot)
+  // Otherwise, activate the last TOC item whose page appears at or before the current page
+  const activeTocPageId = page.isSubmitPage
+    ? tocItems.at(-1)?.pageId
+    : tocItems
+        .filter((item) => {
+          const idx = survey.pages.findIndex((p) => p.id === item.pageId)
+          return idx >= 0 && idx <= currentIndex
+        })
+        .at(-1)?.pageId
 
   const navItems = tocItems.map((item) => ({
     id: item.pageId,

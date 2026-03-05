@@ -122,7 +122,7 @@ function SurveyPageInner({
 
   const navItems = survey.pages.map((p, i) => ({
     id: p.id,
-    label: p.label,
+    label: p.title,
     active: i === currentIndex,
     visited: visitedPages.has(p.id),
     parentId: p.parentId,

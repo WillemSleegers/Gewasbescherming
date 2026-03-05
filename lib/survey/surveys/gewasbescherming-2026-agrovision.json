@@ -9,8 +9,11 @@
     "correspondenceNumber": "0001"
   },
   "toc": [
-    { "pageId": "meedoen", "label": "Pilot" },
-    { "pageId": "einde", "label": "Einde" }
+    { "pageId": "welkom", "label": "Welkom" },
+    { "pageId": "intro", "label": "Introductie" },
+    { "pageId": "teelt", "label": "Teelt" },
+    { "pageId": "gewas-bescherming", "label": "Gewasbescherming" },
+    { "pageId": "verzenden", "label": "Verzenden" }
   ],
   "pages": [
     {
@@ -22,11 +25,139 @@
         {
           "text": "Deze pagina kan worden gebruikt om de gebruikerstest klaar te zetten."
         },
-        { "id": "GewasNaam", "type": "text", "label": "Gewasnaam" },
+        { "id": "GewasNaam", "type": "text", "label": "Gewasnaam" }
+      ]
+    },
+    {
+      "id": "welkom",
+      "title": "Welkom bij de vragenlijst",
+      "content": [
         {
-          "id": "GebruiktAgroVision",
+          "title": "Invullen",
+          "text": "Wij adviseren u de vragenlijst in te vullen op een desktop computer of laptop."
+        },
+        {
+          "title": "Toelichtingen",
+          "text": "De knop met een vraagteken betekent dat er extra uitleg is. Druk op deze knop als u de uitleg wilt zien."
+        },
+        {
+          "title": "Opslaan",
+          "text": "Gegevens worden alleen automatisch opgeslagen wanneer u tussen schermen bladert. Wanneer u langere tijd werkt in één scherm, is het daarom raadzaam zelf de gegevens regelmatig op te slaan door rechtsboven in het scherm op de knop 'Opslaan' te drukken."
+        },
+        {
+          "title": "Heeft u vragen?",
+          "text": "Druk op de 'Help' knop rechtsboven in dit scherm voor verdere uitleg of kijk op www.cbs.nl voor veelgestelde vragen over dit onderzoek."
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "label": "Introductie",
+      "title": "Introductie",
+      "content": [
+        {
+          "text": "In 2026 is er een Europees verplicht onderzoek naar het gebruik van gewasbeschermingsmiddelen in de landbouw. Voor het onderzoek zendt het CBS in november een vragenlijst uit waarin u het middelengebruik over {{GewasNaam}} kan opgeven. Dit jaar biedt het CBS u de mogelijkheid om gegevens direct uit uw teeltregistratie te verstrekken. Op basis van deze vragenlijst testen we of u hiervoor in aanmerking komt."
+        }
+      ]
+    },
+
+    {
+      "id": "teelt",
+      "label": "Teelt",
+      "title": "Teelt",
+      "content": [
+        {
+          "text": "De vragen in deze vragenlijst gaan over {{GewasNaam}} als hoofdteelt in het kalenderjaar 2026."
+        },
+        {
+          "id": "GewasGeteeld",
           "type": "radio",
-          "label": "AgroVision gebruik",
+          "label": "Heeft uw bedrijf in deze periode {{GewasNaam}} geteeld?",
+          "options": [
+            { "value": "Ja", "label": "Ja", "skipTo": "gewas-bescherming" },
+            {
+              "value": "Nee",
+              "label": "Nee, de teelt vindt dit jaar geheel niet plaats",
+              "skipTo": "reden-geen-teelt"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "reden-geen-teelt",
+      "label": "Reden geen teelt",
+      "title": "Reden geen teelt",
+      "nextPageId": "geen-teelt",
+      "content": [
+        {
+          "text": "In de gecombineerde opgave van 2026 gaf u aan van plan te zijn {{GewasNaam}} te telen. Om de veranderingen ten opzichte van de gecombineerde opgave beter in beeld te krijgen, zijn we benieuwd naar de reden van deze wijziging."
+        },
+        {
+          "id": "RedenGeenTeelt",
+          "type": "textarea",
+          "label": "Wat is de reden dat u in 2026 toch geen {{GewasNaam}} teelde?"
+        }
+      ]
+    },
+
+    {
+      "id": "geen-teelt",
+      "label": "Geen teelt",
+      "title": "Geen teelt",
+      "nextPageId": "verzenden",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u {{GewasNaam}} niet geteeld heeft in 2026. Zodoende kunt u helaas niet meedoen met deze test.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
+        }
+      ]
+    },
+
+    {
+      "id": "gewas-bescherming",
+      "label": "Gewasbescherming",
+      "title": "Gewasbescherming",
+      "content": [
+        {
+          "id": "GewasBeschrmng",
+          "type": "radio",
+          "label": "Zijn er gewasbeschermingsmiddelen gebruikt in de teelt van {{GewasNaam}} in 2026?",
+          "hint": "Het gaat hier om chemische en/of microbiologische gewasbeschermingsmiddelen met een Ctgb toelating.",
+          "options": [
+            { "value": "Ja", "label": "Ja", "skipTo": "welk-sys" },
+            { "value": "Nee", "label": "Nee" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "geen-gewas-bescherming",
+      "label": "Geen gewasbescherming",
+      "title": "Geen gewasbescherming",
+      "nextPageId": "welk-sys",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u geen gebruik gemaakt heeft van gewasbeschermingsmiddelen voor {{GewasNaam}} in 2026."
+        },
+        {
+          "id": "GeenGewasBeschrm",
+          "type": "textarea",
+          "label": "Van welke andere techniek of maatregel heeft u gebruik gemaakt om ziekten en plagen te bestrijden? Vermeld uw antwoord in het tekstveld hieronder."
+        }
+      ]
+    },
+
+    {
+      "id": "welk-sys",
+      "label": "Systeem",
+      "title": "Systeem",
+      "content": [
+        {
+          "id": "WelkSys",
+          "type": "radio",
+          "label": "Heeft u in 2026 AgroVision Crops gebruikt voor het registreren van gewasbeschermingsmiddelen op {{GewasNaam}}?",
           "options": [
             { "value": "Ja", "label": "Ja" },
             { "value": "Nee", "label": "Nee", "skipTo": "geen-agrovision" }
@@ -38,15 +169,15 @@
     {
       "id": "meedoen",
       "label": "Meedoen",
-      "title": "Meedoen aan de pilot",
+      "title": "Meedoen aan de test",
       "content": [
         {
-          "text": "U heeft aangegeven dat u AgroVision gebruikt om gegevens bij te houden voor {{GewasNaam}}. Het CBS doet dit jaar een pilot waarbij boeren/telers ervoor kunnen kiezen hun informatie van de teeltregistratie voor {{GewasNaam}} te delen met het CBS.\n\nDit kunt u zelf doen in AgroVision Crops. Dit betreft alleen het gebruik van gewasbeschermingsmiddelen en het behandeld oppervlak voor {{GewasNaam}}. Zodoende hoeft u zelf deze informatie niet meer op te geven via de vragenlijst. Uw administratie van {{GewasNaam}} in Agrovision moet hiervoor wel compleet zijn. Als de informatie incompleet blijkt, zullen we u op een later moment alsnog benaderen voor de deelname aan onze vragenlijst."
+          "text": "U heeft aangegeven dat u AgroVision Crops gebruikt om gegevens bij te houden voor {{GewasNaam}}. Het CBS doet dit jaar een test waarbij bedrijven informatie uit AgroVision Crops kunnen delen met het CBS. In AgroVision Crops is CBS als afnemer opgenomen. Als u informatie wilt delen met CBS kunt u per teelt een bericht aanmaken voor CBS. Voor het verzenden ziet u welke informatie u met het CBS deelt als u het bericht verzendt.\n\nOm mee te kunnen doen aan deze test is het van belang dat u alle middelen die u heeft gebruikt voor {{GewasNaam}} in 2026 en de oogstdatum heeft geregistreerd in AgroVision Crops.\n\nAls de informatie incompleet blijkt, zullen we u op een later moment alsnog benaderen voor de deelname aan onze vragenlijst."
         },
         {
           "id": "MeeDoen",
           "type": "radio",
-          "label": "Wilt u mee doen aan de test waarbij u uw teeltregistratie voor {{GewasNaam}} vanuit AgroVision naar het CBS kunt sturen?",
+          "label": "Wilt u meedoen aan de test waarbij u voor de opgave van het gebruik van gewasbeschermingsmiddelen voor {{GewasNaam}} in 2026 gegevens uit AgroVision Crops verstuurd naar CBS?",
           "hint": "Indien u mee wilt doen, volgt hierna een uitleg hoe u de informatie naar het CBS stuurt.",
           "options": [
             { "value": "Ja", "label": "Ja" },
@@ -55,22 +186,23 @@
         }
       ]
     },
+
     {
       "id": "instructies",
       "label": "Instructies",
       "title": "Instructies",
       "content": [
         {
-          "text": "U heeft aangegeven dat u mee wilt doen aan de test. Hieronder volgt een uitleg hoe u de informatie kan versturen vanuit AgroVision."
+          "text": "U heeft aangegeven dat u mee wilt doen aan de test. Hieronder volgt een uitleg hoe u de informatie kan versturen vanuit AgroVision Crops."
         },
         {
-          "title": "Hoe verstuurt u uw teeltregistratie naar het CBS?",
-          "text": "1. Gaan naar AgroVision Crops op uw computer of in de app op uw telefoon/tablet.\n2. Klik op de menuknop Communicatie.\n3. Kies het tabblad Edi export afnemer.\n4. Klik op de knop + Koppelen teelten/afnemers.\n5. Selecteer CBS in het optiemenu.\n6. Vink de teelt(en) aan die u wilt verzenden.\n7. Sluit af met Opslaan.\n8. Klik aan de rechterkant op de witte envelop om de teelt te versturen.\n9. Keer terug naar deze vragenlijst."
+          "title": "Hoe verstuurt u gegevens naar het CBS?",
+          "text": "Stap 1. Gaan naar AgroVision Crops op uw computer.\nStap 2. Klik op de menuknop Communicatie.\nStap 3. Kies het tabblad Edi export afnemer.\nStap 4. Klik op de knop + Koppelen teelten/afnemers.\nStap 5. Selecteer CBS in het optiemenu.\nStap 6. Vink de teelt(en) aan die u wilt verzenden en vul bij het bedrijfs- of telernummer het kvk-nummer van uw bedrijf in.\nStap 7. Sluit af met Opslaan.\nStap 8. Klik aan de rechterkant op de blauwe envelop om de teelt te versturen. Herhaal deze stap voor elke teelt.\nStap 9. Keer terug naar deze vragenlijst.\n\nVoor hulp bij het versturen van de informatie kunt u contact opnemen met de Helpdesk van AgroVision."
         },
         {
           "id": "TeeltVerstuurd",
           "type": "radio",
-          "label": "Is de teeltregistratie voor {{GewasNaam}} succesvol verstuurd naar het CBS?",
+          "label": "Heeft u de gegevens over het gebruik van gewasbeschermingsmiddelen over {{GewasNaam}} in 2026 succesvol verstuurd naar het CBS?",
           "options": [
             { "value": "Ja", "label": "Ja", "skipTo": "bedankt" },
             { "value": "Nee", "label": "Nee" }
@@ -78,52 +210,65 @@
         }
       ]
     },
+
     {
       "id": "mislukt",
       "label": "Niet verstuurd",
       "title": "Niet verstuurd",
-      "nextPageId": "einde",
+      "nextPageId": "verzenden",
       "content": [
         {
-          "text": "U heeft aangegeven dat u de teeltregistratie niet naar het CBS kon versturen in AgroVision Crops.\n\nDit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief."
+          "text": "U heeft aangegeven dat u de gegevens niet naar het CBS kon versturen vanuit AgroVision Crops.\n\nDit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nU kunt deze vragenlijst verder afronden. Bij de volgende vragen wordt u verzocht uw contactinformatie in te vullen."
         }
       ]
     },
+
     {
       "id": "bedankt",
       "label": "Bedankt",
       "title": "Bedankt",
-      "nextPageId": "einde",
-      "content": [{ "text": "Hartelijk dank voor uw deelname aan de pilot!" }]
+      "nextPageId": "verzenden",
+      "content": [
+        {
+          "text": "Hartelijk dank voor uw deelname aan deze test!\n\nU kunt deze vragenlijst verder afronden. Bij de volgende vragen wordt u verzocht uw contactinformatie in te vullen."
+        }
+      ]
     },
+
     {
       "id": "niet-meedoen",
       "label": "Niet meedoen",
       "title": "Niet meedoen",
-      "nextPageId": "einde",
+      "nextPageId": "verzenden",
       "content": [
         {
-          "text": "U heeft aangegeven dat u niet mee wilt doen aan de pilot. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief."
+          "text": "U heeft aangegeven dat u niet mee wilt doen aan deze test. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
         }
       ]
     },
+
     {
       "id": "geen-agrovision",
       "label": "Geen AgroVision",
       "title": "Geen AgroVision",
-      "nextPageId": "einde",
+      "nextPageId": "verzenden",
       "content": [
         {
-          "text": "U heeft aangegeven dat u geen gebruik maakt van AgroVision voor het registreren van gewasbeschermingsmiddelen. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de gebruikelijke vragenlijst aan te leveren. Hierover ontvangt u eind november een brief."
+          "text": "U heeft aangegeven dat u geen gebruik maakt van AgroVision Crops voor het registreren van gewasbeschermingsmiddelen. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
         }
       ]
     },
+
     {
-      "id": "einde",
-      "label": "Einde",
-      "title": "Einde",
+      "id": "verzenden",
+      "label": "Verzenden",
+      "title": "Verzenden",
       "isSubmitPage": true,
-      "content": [{ "text": "Dit is het einde van de gebruikerstest." }]
+      "content": [
+        {
+          "text": "Dit waren alle vragen. Hartelijk dank voor uw medewerking! Klik op de knop 'Verzenden' om uw antwoorden naar het CBS te sturen."
+        }
+      ]
     }
   ]
 }

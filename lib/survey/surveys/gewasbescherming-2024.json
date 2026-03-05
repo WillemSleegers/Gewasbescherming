@@ -11,7 +11,6 @@
   "pages": [
     {
       "id": "welkom",
-      "label": "Welkom",
       "title": "Welkom bij de vragenlijst",
       "content": [
         { "title": "Invullen", "text": "Wij adviseren u de vragenlijst in te vullen op een desktop computer of laptop." },
@@ -22,7 +21,6 @@
     },
     {
       "id": "mps",
-      "label": "MPS",
       "title": "MPS",
       "content": [
         {
@@ -38,7 +36,6 @@
     },
     {
       "id": "pilot",
-      "label": "Pilot",
       "title": "Pilot",
       "content": [
         { "text": "CBS voert een pilot uit met MPS bij een select aantal gewassen waarbij berichtgevers die gegevens geregistreerd hebben bij MPS ervoor kunnen kiezen CBS toestemming te geven informatie over het gebruik van middelen en het behandeld oppervlak per middel voor gewas x op te vragen bij MPS." },
@@ -57,7 +54,6 @@
     },
     {
       "id": "pilot-afronding",
-      "label": "Afronding",
       "title": "Afronding deelname pilot",
       "parentId": "pilot",
       "content": [
@@ -66,7 +62,6 @@
     },
     {
       "id": "algemene-vragen",
-      "label": "Algemene vragen",
       "title": "Algemene vragen",
       "content": [
         { "text": "Dit is het einde van deze gebruikerstest." }
@@ -74,7 +69,6 @@
     },
     {
       "id": "gewasbeschermingsmiddelen-teelt",
-      "label": "Gewasbeschermings-middelen bij de teelt",
       "title": "Gewasbeschermingsmiddelen bij de teelt",
       "content": [
         { "text": "Dit is het einde van deze gebruikerstest." }
@@ -82,7 +76,6 @@
     },
     {
       "id": "contact",
-      "label": "Contact",
       "title": "Contactgegevens",
       "content": [
         { "text": "Dit is het einde van deze gebruikerstest." }
@@ -90,7 +83,6 @@
     },
     {
       "id": "verzenden",
-      "label": "Verzenden",
       "title": "Verzenden",
       "isSubmitPage": true,
       "content": [

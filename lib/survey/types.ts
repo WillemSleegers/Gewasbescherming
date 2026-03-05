@@ -63,13 +63,11 @@ export type PageItem = Section | Question
 
 export interface SurveyPage {
   id: string
-  label: string
   title: string
   content: PageItem[]
   isSubmitPage?: boolean
   parentId?: string // ID of parent page for subpages (indented in navigation)
   nextPageId?: string // Override the default next-page navigation
-  hideFromNav?: boolean // Exclude this page from the navigation sidebar entirely
 }
 
 export interface TocItem {
