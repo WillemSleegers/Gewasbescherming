@@ -6,6 +6,7 @@ import {
   BlaiseRadioGroup,
   BlaiseCheckboxGroup,
   BlaiseNumberInput,
+  BlaiseSelect,
   BlaiseContentSection,
 } from "@/components/blaise"
 import { useSurvey } from "./context"
@@ -34,6 +35,8 @@ export function QuestionRenderer({ question }: { question: Question }) {
           onChange={(v) => setAnswer(question.id, v)}
           placeholder={question.placeholder}
           required={question.required}
+          hint={question.hint}
+          width={question.width}
         />
       )
     case "textarea":
@@ -82,6 +85,19 @@ export function QuestionRenderer({ question }: { question: Question }) {
           min={question.min}
           max={question.max}
           required={question.required}
+        />
+      )
+    case "select":
+      return (
+        <BlaiseSelect
+          id={question.id}
+          label={label}
+          value={typeof value === "string" ? value : ""}
+          onChange={(v) => setAnswer(question.id, v)}
+          options={question.options}
+          required={question.required}
+          hint={question.hint}
+          width={question.width}
         />
       )
   }

@@ -3,7 +3,11 @@ interface BlaiseContentProps {
 }
 
 export function BlaiseContent({ children }: BlaiseContentProps) {
-  return <main className="bg-survey-white flex-1 px-8 py-6">{children}</main>
+  return (
+    <main className="bg-survey-white flex-1 flex flex-col min-h-130 px-8 py-6">
+      {children}
+    </main>
+  )
 }
 
 interface BlaiseContentSectionProps {

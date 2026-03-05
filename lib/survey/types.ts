@@ -22,6 +22,7 @@ export interface BaseQuestion {
   label: string
   required?: boolean
   hint?: string
+  width?: "full" | "half"
 }
 
 export interface TextQuestion extends BaseQuestion {
@@ -52,12 +53,18 @@ export interface NumberQuestion extends BaseQuestion {
   placeholder?: string
 }
 
+export interface SelectQuestion extends BaseQuestion {
+  type: "select"
+  options: { value: string; label: string }[]
+}
+
 export type Question =
   | TextQuestion
   | TextAreaQuestion
   | RadioQuestion
   | CheckboxQuestion
   | NumberQuestion
+  | SelectQuestion
 
 export type PageItem = Section | Question
 

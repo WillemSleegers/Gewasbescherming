@@ -13,6 +13,7 @@
     { "pageId": "intro", "label": "Introductie" },
     { "pageId": "teelt", "label": "Teelt" },
     { "pageId": "gewas-bescherming", "label": "Gewasbescherming" },
+    { "pageId": "contact", "label": "Contact" },
     { "pageId": "verzenden", "label": "Verzenden" }
   ],
   "pages": [
@@ -35,10 +36,6 @@
         {
           "title": "Invullen",
           "text": "Wij adviseren u de vragenlijst in te vullen op een desktop computer of laptop."
-        },
-        {
-          "title": "Toelichtingen",
-          "text": "De knop met een vraagteken betekent dat er extra uitleg is. Druk op deze knop als u de uitleg wilt zien."
         },
         {
           "title": "Opslaan",
@@ -106,7 +103,7 @@
       "id": "geen-teelt",
       "label": "Geen teelt",
       "title": "Geen teelt",
-      "nextPageId": "verzenden",
+      "nextPageId": "contact",
       "content": [
         {
           "text": "U heeft aangegeven dat u {{GewasNaam}} niet geteeld heeft in 2026. Zodoende kunt u helaas niet meedoen met deze test.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
@@ -136,7 +133,7 @@
       "id": "geen-gewas-bescherming",
       "label": "Geen gewasbescherming",
       "title": "Geen gewasbescherming",
-      "nextPageId": "welk-sys",
+      "nextPageId": "geen-middelen",
       "content": [
         {
           "text": "U heeft aangegeven dat u geen gebruik gemaakt heeft van gewasbeschermingsmiddelen voor {{GewasNaam}} in 2026."
@@ -145,6 +142,18 @@
           "id": "GeenGewasBeschrm",
           "type": "textarea",
           "label": "Van welke andere techniek of maatregel heeft u gebruik gemaakt om ziekten en plagen te bestrijden? Vermeld uw antwoord in het tekstveld hieronder."
+        }
+      ]
+    },
+
+    {
+      "id": "geen-middelen",
+      "label": "Geen middelen",
+      "title": "Geen gewasbeschermingsmiddelen",
+      "nextPageId": "contact",
+      "content": [
+        {
+          "text": "U heeft aangegeven dat u geen gewasbeschermingsmiddelen hebt gebruikt voor {{GewasNaam}} in 2026.\nZodoende kunt u helaas niet meedoen met deze test.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen.\nDaarna kunt u deze vragenlijst afronden."
         }
       ]
     },
@@ -215,7 +224,7 @@
       "id": "mislukt",
       "label": "Niet verstuurd",
       "title": "Niet verstuurd",
-      "nextPageId": "verzenden",
+      "nextPageId": "contact",
       "content": [
         {
           "text": "U heeft aangegeven dat u de gegevens niet naar het CBS kon versturen vanuit AgroVision Crops.\n\nDit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nU kunt deze vragenlijst verder afronden. Bij de volgende vragen wordt u verzocht uw contactinformatie in te vullen."
@@ -227,7 +236,7 @@
       "id": "bedankt",
       "label": "Bedankt",
       "title": "Bedankt",
-      "nextPageId": "verzenden",
+      "nextPageId": "contact",
       "content": [
         {
           "text": "Hartelijk dank voor uw deelname aan deze test!\n\nU kunt deze vragenlijst verder afronden. Bij de volgende vragen wordt u verzocht uw contactinformatie in te vullen."
@@ -239,7 +248,7 @@
       "id": "niet-meedoen",
       "label": "Niet meedoen",
       "title": "Niet meedoen",
-      "nextPageId": "verzenden",
+      "nextPageId": "contact",
       "content": [
         {
           "text": "U heeft aangegeven dat u niet mee wilt doen aan deze test. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
@@ -251,10 +260,55 @@
       "id": "geen-agrovision",
       "label": "Geen AgroVision",
       "title": "Geen AgroVision",
-      "nextPageId": "verzenden",
+      "nextPageId": "contact",
       "content": [
         {
           "text": "U heeft aangegeven dat u geen gebruik maakt van AgroVision Crops voor het registreren van gewasbeschermingsmiddelen. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
+        }
+      ]
+    },
+
+    {
+      "id": "contact",
+      "label": "Contactgegevens",
+      "title": "Contactgegevens",
+      "content": [
+        {
+          "text": "Soms heeft het CBS nog vragen over de ingevulde gegevens. We willen dan contact opnemen met de persoon die deze vragenlijst heeft ingevuld.\n\nWie heeft deze vragenlijst ingevuld?"
+        },
+        {
+          "id": "Aanhef",
+          "type": "select",
+          "label": "Aanhef",
+          "width": "half",
+          "options": [
+            { "value": "De heer", "label": "De heer" },
+            { "value": "Mevrouw", "label": "Mevrouw" }
+          ]
+        },
+        {
+          "id": "Voorletters",
+          "type": "text",
+          "label": "Voorletters",
+          "width": "half"
+        },
+        {
+          "id": "Achternaam",
+          "type": "text",
+          "label": "Achternaam"
+        },
+        {
+          "id": "Telefoonnummer",
+          "type": "text",
+          "label": "Op welk telefoonnummer kunnen we u het beste bereiken?",
+          "width": "half",
+          "hint": "Telefoonnummer invullen zonder streepje (-).\nBuitenlands nummer? Vul dan ook de landcode in (bijv. 0032)."
+        },
+        {
+          "id": "Emailadres",
+          "type": "text",
+          "label": "Wat is uw e-mailadres?",
+          "hint": "Geef bij voorkeur een zakelijk e-mailadres op."
         }
       ]
     },

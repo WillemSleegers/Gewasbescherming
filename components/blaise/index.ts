@@ -12,3 +12,4 @@ export { BlaiseTextArea } from "./BlaiseTextArea";
 export { BlaiseRadioGroup } from "./BlaiseRadioGroup";
 export { BlaiseCheckboxGroup } from "./BlaiseCheckboxGroup";
 export { BlaiseNumberInput } from "./BlaiseNumberInput";
+export { BlaiseSelect } from "./BlaiseSelect";

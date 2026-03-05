@@ -76,7 +76,7 @@ function PageContent({
   }
 
   return (
-    <>
+    <div className="flex flex-col flex-1">
       <h1 className="text-xl font-bold text-survey-text mb-4">{page.title}</h1>
 
       <div className="mb-6">
@@ -91,17 +91,17 @@ function PageContent({
         })}
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-4 mt-auto">
         {navigationHistory.length > 0 && (
           <BlaiseButton onClick={handlePrevious}>Vorige</BlaiseButton>
         )}
         {page.isSubmitPage ? (
-          <BlaiseButton onClick={handleSubmit}>Verzenden</BlaiseButton>
+          <BlaiseButton variant="submit" onClick={handleSubmit}>Verzenden</BlaiseButton>
         ) : (
           <BlaiseButton onClick={handleNext}>Volgende</BlaiseButton>
         )}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -175,6 +175,7 @@ function SurveyPageInner({
         <BlaiseNavigation items={navItems} onItemClick={handleNavClick} activePageId={page.id} />
         <BlaiseContent>
           <PageContent
+            key={page.id}
             survey={survey}
             page={page}
             currentIndex={currentIndex}

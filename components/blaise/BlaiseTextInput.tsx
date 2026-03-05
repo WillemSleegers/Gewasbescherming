@@ -7,6 +7,8 @@ interface BlaiseTextInputProps {
   onChange: (value: string) => void
   placeholder?: string
   required?: boolean
+  hint?: string
+  width?: "full" | "half"
 }
 
 export function BlaiseTextInput({
@@ -16,20 +18,24 @@ export function BlaiseTextInput({
   onChange,
   placeholder,
   required,
+  hint,
+  width = "full",
 }: BlaiseTextInputProps) {
+  const widthClass = width === "half" ? "max-w-[14rem]" : "max-w-md"
   return (
     <div className="mb-4">
-      <label htmlFor={id} className="block text-survey-text mb-1">
+      <label htmlFor={id} className="block text-survey-text font-bold mb-1">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
+      {hint && <p className="text-sm text-gray-500 mb-2 whitespace-pre-line">{hint}</p>}
       <input
         type="text"
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full max-w-md px-2 py-1 border border-survey-text-muted text-survey-text bg-survey-white"
+        className={`w-full ${widthClass} px-2 py-1 border border-survey-text-muted text-survey-text bg-survey-white`}
         required={required}
       />
     </div>
