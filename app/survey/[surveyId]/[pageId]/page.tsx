@@ -130,7 +130,7 @@ function SurveyPageInner({
   }, [page.id, markPageVisited, survey, router])
 
   const tocItems = survey.toc ??
-    survey.pages.map((p) => ({ pageId: p.id, label: p.title, parentId: p.parentId }))
+    survey.pages.map((p) => ({ pageId: p.id, label: p.title ?? p.id, parentId: p.parentId }))
 
   // On submit pages, activate the last TOC item (acts as a shared "Einde" slot)
   // Otherwise, activate the last TOC item whose page appears at or before the current page
