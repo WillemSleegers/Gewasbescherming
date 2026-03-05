@@ -23,7 +23,7 @@ export function QuestionRenderer({ question }: { question: Question }) {
   const { getAnswer, setAnswer, answers } = useSurvey()
 
   const value = getAnswer(question.id)
-  const label = interpolate(question.label, answers)
+  const label = renderText(interpolate(question.label, answers))
 
   switch (question.type) {
     case "text":
@@ -103,12 +103,22 @@ export function QuestionRenderer({ question }: { question: Question }) {
   }
 }
 
+function renderText(text: string) {
+  return text.split(/(\*\*.*?\*\*|__.*?__)/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**"))
+      return <strong key={i}>{part.slice(2, -2)}</strong>
+    if (part.startsWith("__") && part.endsWith("__"))
+      return <u key={i}>{part.slice(2, -2)}</u>
+    return part
+  })
+}
+
 export function SectionRenderer({ section }: { section: Section }) {
   const { answers } = useSurvey()
   const text = interpolate(section.text, answers)
   return (
-    <BlaiseContentSection title={section.title}>
-      <p className="whitespace-pre-line">{text}</p>
+    <BlaiseContentSection title={section.title ? renderText(section.title) : undefined}>
+      <p className="whitespace-pre-line">{renderText(text)}</p>
     </BlaiseContentSection>
   )
 }

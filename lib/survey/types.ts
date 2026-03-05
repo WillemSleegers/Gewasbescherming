@@ -70,7 +70,7 @@ export type PageItem = Section | Question
 
 export interface SurveyPage {
   id: string
-  title: string
+  title?: string
   content: PageItem[]
   isSubmitPage?: boolean
   parentId?: string // ID of parent page for subpages (indented in navigation)

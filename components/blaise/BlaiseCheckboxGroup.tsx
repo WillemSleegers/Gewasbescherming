@@ -7,7 +7,7 @@ interface CheckboxOption {
 
 interface BlaiseCheckboxGroupProps {
   id: string
-  label: string
+  label: React.ReactNode
   values: string[]
   onChange: (values: string[]) => void
   options: CheckboxOption[]

@@ -1,6 +1,6 @@
 {
-  "id": "gewasbescherming-2026-agrovision",
-  "label": "Gewasbescherming 2026 (AgroVision)",
+  "id": "gewasbescherming-2026-mps",
+  "label": "Gewasbescherming 2026 (MPS)",
   "title": "Gewasbescherming 2026",
   "subtitle": "Invullen voor: 1-1-2027",
   "company": {
@@ -47,10 +47,10 @@
         }
       ]
     },
+
     {
       "id": "intro",
       "label": "Introductie",
-
       "content": [
         {
           "text": "In 2026 is er een Europees verplicht onderzoek naar het gebruik van gewasbeschermingsmiddelen in de landbouw. Voor het onderzoek zendt het CBS in november een vragenlijst uit waarin u het middelengebruik over {{GewasNaam}} kan opgeven. Dit jaar biedt het CBS u de mogelijkheid om gegevens direct uit uw teeltregistratie te verstrekken. Op basis van deze vragenlijst testen we of u hiervoor in aanmerking komt."
@@ -166,80 +166,55 @@
         {
           "id": "WelkSys",
           "type": "radio",
-          "label": "Heeft u in 2026 AgroVision Crops gebruikt voor het registreren van gewasbeschermingsmiddelen op {{GewasNaam}}?",
+          "label": "Heeft u in 2026 MPS gebruikt voor het registreren van gewasbeschermingsmiddelen op {{GewasNaam}}?",
           "options": [
             { "value": "Ja", "label": "Ja" },
-            { "value": "Nee", "label": "Nee", "skipTo": "geen-agrovision" }
+            { "value": "Nee", "label": "Nee", "skipTo": "geen-mps" }
           ]
         }
       ]
     },
 
     {
-      "id": "meedoen",
-      "label": "Meedoen",
+      "id": "toestemming",
+      "label": "Toestemming",
 
       "content": [
         {
-          "text": "U heeft aangegeven dat u AgroVision Crops gebruikt om gegevens bij te houden voor {{GewasNaam}}. Het CBS doet dit jaar een test waarbij bedrijven informatie uit AgroVision Crops kunnen delen met het CBS. In AgroVision Crops is CBS als afnemer opgenomen. Als u informatie wilt delen met CBS kunt u per teelt een bericht aanmaken voor CBS. Voor het verzenden ziet u welke informatie u met het CBS deelt als u het bericht verzendt.\n\nOm mee te kunnen doen aan deze test is het van belang dat u alle middelen die u heeft gebruikt voor {{GewasNaam}} in 2026 en de oogstdatum heeft geregistreerd in AgroVision Crops.\n\nAls de informatie incompleet blijkt, zullen we u op een later moment alsnog benaderen voor de deelname aan onze vragenlijst."
+          "text": "U heeft aangegeven dat u MPS gebruikt om gegevens bij te houden voor {{GewasNaam}}. Veel bedrijven hebben in de voorgaande vragenlijst aangegeven de gegevens uit MPS te willen delen met CBS. Het CBS doet dit jaar een test waarbij bedrijven het CBS toestemming kunnen geven om informatie op te vragen bij MPS. Dit betreft alleen het gebruik van gewasbeschermingsmiddelen en het behandeld oppervlak voor {{GewasNaam}} in 2026. Zodoende hoeft u zelf deze informatie niet meer op te geven via een enquête. Uw administratie van {{GewasNaam}} in MPS moet hiervoor wel compleet zijn. Als de informatie incompleet blijkt, zullen we u op een later moment alsnog benaderen voor de deelname aan onze vragenlijst."
         },
         {
-          "id": "MeeDoen",
+          "title": "__Toestemmingsverklaring__",
+          "text": "Door onderstaande vraag met 'Ja, ik geef toestemming' te beantwoorden geef ik toestemming aan het Centraal Bureau voor de Statistiek (CBS) om de volgende gegevens op te vragen bij MPS:\n\nVan elk gewasbeschermingsmiddel gebruikt op {{GewasNaam}} in 2026:\n- het totale gebruik in kilogram of liter\n- het behandeld oppervlak in hectare\n\nIk weet dat deze gegevens alleen worden gebruikt voor statistische doeleinden zoals bedoeld in de Wet op het CBS.\nIk weet dat publicaties nooit informatie zullen bevatten die herleidbaar is tot een bedrijf of een persoon."
+        },
+        {
+          "id": "Toestemming",
           "type": "radio",
-          "label": "**Wilt u meedoen aan de test waarbij u voor de opgave van het gebruik van gewasbeschermingsmiddelen voor {{GewasNaam}} in 2026 gegevens uit AgroVision Crops verstuurd naar CBS?**",
-          "hint": "Indien u mee wilt doen, volgt hierna een uitleg hoe u de informatie naar het CBS stuurt.",
+          "label": "**Geeft u toestemming voor het ophalen van de informatie (zoals hierboven beschreven) bij MPS?**",
           "options": [
-            { "value": "Ja", "label": "Ja" },
-            { "value": "Nee", "label": "Nee", "skipTo": "niet-meedoen" }
+            {
+              "value": "Ja",
+              "label": "Ja, ik geef toestemming",
+              "skipTo": "wel-mps"
+            },
+            {
+              "value": "Nee",
+              "label": "Nee, ik geef geen toestemming",
+              "skipTo": "niet-meedoen"
+            }
           ]
         }
       ]
     },
 
     {
-      "id": "instructies",
-      "label": "Instructies",
-
-      "content": [
-        {
-          "text": "U heeft aangegeven dat u mee wilt doen aan de test. Hieronder volgt een uitleg hoe u de informatie kan versturen vanuit AgroVision Crops."
-        },
-        {
-          "title": "**Hoe verstuurt u gegevens naar het CBS?**",
-          "text": "Stap 1. Gaan naar AgroVision Crops op uw computer.\nStap 2. Klik op de menuknop Communicatie.\nStap 3. Kies het tabblad Edi export afnemer.\nStap 4. Klik op de knop + Koppelen teelten/afnemers.\nStap 5. Selecteer CBS in het optiemenu.\nStap 6. Vink de teelt(en) aan die u wilt verzenden en vul bij het bedrijfs- of telernummer het **kvk-nummer** van uw bedrijf in.\nStap 7. Sluit af met **Opslaan**.\nStap 8. Klik aan de rechterkant op de blauwe envelop om de teelt te versturen. Herhaal deze stap voor elke teelt.\n**Stap 9. Keer terug naar deze vragenlijst**.\n\nVoor hulp bij het versturen van de informatie kunt u contact opnemen met de Helpdesk van AgroVision."
-        },
-        {
-          "id": "TeeltVerstuurd",
-          "type": "radio",
-          "label": "Heeft u de gegevens over het gebruik van gewasbeschermingsmiddelen over {{GewasNaam}} in 2026 succesvol verstuurd naar het CBS?",
-          "options": [
-            { "value": "Ja", "label": "Ja", "skipTo": "bedankt" },
-            { "value": "Nee", "label": "Nee" }
-          ]
-        }
-      ]
-    },
-
-    {
-      "id": "mislukt",
-      "label": "Niet verstuurd",
+      "id": "wel-mps",
+      "label": "Toestemming gegeven",
 
       "nextPageId": "contact",
       "content": [
         {
-          "text": "U heeft aangegeven dat u de gegevens niet naar het CBS kon versturen vanuit AgroVision Crops.\n\nDit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nU kunt deze vragenlijst verder afronden. Bij de volgende vragen wordt u verzocht uw contactinformatie in te vullen."
-        }
-      ]
-    },
-
-    {
-      "id": "bedankt",
-      "label": "Bedankt",
-
-      "nextPageId": "contact",
-      "content": [
-        {
-          "text": "Hartelijk dank voor uw deelname aan deze test!\n\nU kunt deze vragenlijst verder afronden. Bij de volgende vragen wordt u verzocht uw contactinformatie in te vullen."
+          "text": "U heeft toestemming gegeven aan het CBS om deze gegevens bij MPS op te halen voor het onderzoek naar gewasbescherming in 2026.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen.\nDaarna kunt u deze vragenlijst afronden."
         }
       ]
     },
@@ -251,19 +226,19 @@
       "nextPageId": "contact",
       "content": [
         {
-          "text": "U heeft aangegeven dat u niet mee wilt doen aan deze test. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
+          "text": "U heeft aangegeven dat u niet mee wil doen aan de test. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen.\nDaarna kunt u deze vragenlijst afronden."
         }
       ]
     },
 
     {
-      "id": "geen-agrovision",
-      "label": "Geen AgroVision",
+      "id": "geen-mps",
+      "label": "Geen MPS",
 
       "nextPageId": "contact",
       "content": [
         {
-          "text": "U heeft aangegeven dat u geen gebruik maakt van AgroVision Crops voor het registreren van gewasbeschermingsmiddelen. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen. Daarna kunt u deze vragenlijst afronden."
+          "text": "U heeft aangegeven dat u geen gebruik maakt van MPS voor het registreren van gewasbeschermingsmiddelen. Dit betekent dat u later dit jaar gevraagd wordt om deze gegevens via de vragenlijst aan te leveren. Hierover ontvangt u eind november een brief.\n\nBij de volgende vragen wordt u verzocht uw contactinformatie in te vullen.\nDaarna kunt u deze vragenlijst afronden."
         }
       ]
     },

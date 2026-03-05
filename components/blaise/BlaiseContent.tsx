@@ -11,7 +11,7 @@ export function BlaiseContent({ children }: BlaiseContentProps) {
 }
 
 interface BlaiseContentSectionProps {
-  title?: string
+  title?: React.ReactNode
   children: React.ReactNode
 }
 
@@ -21,7 +21,7 @@ export function BlaiseContentSection({
 }: BlaiseContentSectionProps) {
   return (
     <section className="mb-6">
-      {title && <h2 className="font-bold text-survey-text">{title}</h2>}
+      {title && <h2 className="text-survey-text">{title}</h2>}
       <div className="text-survey-text">{children}</div>
     </section>
   )

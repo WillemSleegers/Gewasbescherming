@@ -7,7 +7,7 @@ interface SelectOption {
 
 interface BlaiseSelectProps {
   id: string
-  label: string
+  label: React.ReactNode
   value: string
   onChange: (value: string) => void
   options: SelectOption[]
